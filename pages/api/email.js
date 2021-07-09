@@ -4,7 +4,7 @@ export default (req, res) => {
   const body = JSON.parse(req.body);
   console.log(body)
 
-// sgMail.setApiKey('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')
+
 // const msg = {
 //   to: 'aamine@bright-lab.com',
 //   from: 'amineamine19961996@gmail.com', 
