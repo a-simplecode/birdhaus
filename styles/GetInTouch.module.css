@@ -1,0 +1,13 @@
+.container{
+    background-color:#FFDE52;
+    padding: 10% 5% 2% 5%;
+}
+
+.button{
+    margin-top: 30px;
+}
+
+.warning{
+    max-width: 500px;
+    text-align: center;
+}

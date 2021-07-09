@@ -1,0 +1,116 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.verticalAlign{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.relative{
+  position: relative;
+}
+
+.absolute{
+  position: absolute;
+  left:0;
+}
+
+.absoluteRight{
+position: absolute;
+right: 0;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.zIndex{
+z-index: 1;
+}
+
+.pl-4{
+  padding-left: 1.5rem!important;
+}
+
+
+ul {
+  list-style: none;
+}
+
+ul li::before {
+  content: "\2022";
+  color: #FFDE52;
+  font-weight: bold;
+  display: inline-block; 
+  width: 1em;
+  margin-left: -1em;
+}
+
+input[type=text] {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  background-color: unset;
+  border-bottom: 1px solid black;
+}
+
+.hiddenDesktop{
+  display: none;
+}
+
+.fs-100{
+  font-size: 100px;
+}
+
+.fs-69{
+  font-size: 69px;
+}
+
+.fs-18{
+  font-size: 18px;
+}
+
+.fs-14{
+  font-size: 14px;
+}
+
+
+@media (max-width : 767px) {
+  .hiddenDesktop{
+    display: block;
+  }
+
+  .hiddenMobile{
+    display: none;
+  }
+
+  .fs-100{
+    font-size: 55px;
+  }
+
+  .fs-69{
+    font-size: 42px;
+  }
+
+  .fs-18{
+    font-size: 15px;
+  }
+}

@@ -1,0 +1,11 @@
+.container{
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main{
+    /* max-width: 1200px; */
+}
