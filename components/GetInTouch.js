@@ -239,6 +239,7 @@ export default function GetInTouch() {
       </div>
     );
   };
+  
   return (
     <div className={cn("col-12 zIndex", styles.container)}>
       <div className="row pl-4">
