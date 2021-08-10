@@ -14,6 +14,7 @@ export default function SVGButton(props) {
           <rect width={252} height={66} rx={10} stroke="none" />
           <rect x={1} y={1} width={250} height={64} rx={9} fill="none" />
         </g>
+        
         <text
           data-name="Send a message now"
           transform="translate(31 38)"
