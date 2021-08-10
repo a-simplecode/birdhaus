@@ -175,6 +175,7 @@ export default function GetInTouch() {
   };
 
   const contactInfoHTML = () => {
+    
     return (
       <div className="col-12 offset-xl-1 col-xl-5 pt-4">
         <div className="row mb-2">
@@ -239,7 +240,7 @@ export default function GetInTouch() {
       </div>
     );
   };
-  
+
   return (
     <div className={cn("col-12 zIndex", styles.container)}>
       <div className="row pl-4">
