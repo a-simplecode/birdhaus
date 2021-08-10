@@ -121,12 +121,13 @@ export default function GetInTouch() {
                 />
               </div>
 
-              <div>
+              <div className={styles.select}>
+              <label htmlFor="work">I want to work with BirdHaus_</label>
                 <Field
-                  as="select"
+                  component="select"
                   placeholder="I want to work with BirdHaus_"
                   name="work"
-                  className="formik_field"
+                  className={cn("formik_field",styles.selectOpt)}
                 >
                   {options.map((opt)=> <option key={opt} value={opt}>{opt}</option>)}
                 </Field>
@@ -140,7 +141,7 @@ export default function GetInTouch() {
               <div>
                 <Field
                   as="textarea"
-                  placeholder="Wirte your message here…"
+                  placeholder="Write your message here…"
                   name="message"
                   className="formik_field"
                   style={{ height: "100px" }}
@@ -210,7 +211,7 @@ export default function GetInTouch() {
             <Link href="mailto:info@bird-haus.com">
               <a rel="noopener noreferrer">
                 <div className="font-MontserratBold">
-                  And if you’re a introvert, email us
+                  And if you’re an introvert, email us
                 </div>
                 <div className="font-MontserratRegular">info@bird-haus.com</div>
               </a>

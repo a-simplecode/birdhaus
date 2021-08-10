@@ -21,7 +21,7 @@ export default function SVGButton(props) {
           fontFamily="Montserrat-Medium, Montserrat"
           fontWeight={500}
         >
-          <tspan x={0} y={0}>
+          <tspan x={0} y={0} fontSize={15}>
             {"Send us a message"}
           </tspan>
         </text>
