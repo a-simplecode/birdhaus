@@ -10,101 +10,166 @@ import SVGLinkedIn from "../components/icons/SVGLinkedIn";
 import SVGInstagram from "../components/icons/SVGInstagram";
 import SVGButton from "../components/icons/SVGButton";
 import SVGFlagMGroup from "./icons/SVGFlagMGroup";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { ValidateEmail } from "../helpers/validations";
 
 export default function GetInTouch() {
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    number: "",
-    work: "",
-    message: "",
-  });
-  const [warning, setWarning] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
-    setWarning(false);
-  };
-
-  const sendMessage = async () => {
-    if (user.name && user.email && user.number && user.work && user.message) {
-      const result = await fetch("/api/email", {
-        method: "post",
-        body: JSON.stringify(user),
-      });
-
-      setUser({
-        name: "",
-        email: "",
-        number: "",
-        work: "",
-        message: "",
-      });
-      setWarning(false);
-    } else {
-      setWarning(true);
-    }
+  const [thankYou, setThankYou] = useState(false);
+  const options = [
+    "Digital Strategy",
+    "UI UX Design",
+    "Growth Strategy",
+    "Art Direction",
+    "Design",
+    "Logistics",
+    "E-commerce",
+    "Data Analysis",
+    "Customer Support",
+  ];
+  const sendMessage = async (values, setSubmitting, resetForm) => {
+    const result = await fetch("/api/email", {
+      method: "post",
+      body: JSON.stringify(values),
+    });
+    setThankYou(true);
+    resetForm({});
+    setSubmitting(false);
   };
 
   const sendFormHTML = () => {
     return (
       <div className="col-12 col-xl-6 pt-4">
-        <div>
-          <input
-            type="text"
-            placeholder="Full Name"
-            name="name"
-            value={user.name}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Email Address"
-            name="email"
-            value={user.email}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Phone Number"
-            name="number"
-            value={user.number}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="I want to work with BirdHaus_"
-            name="work"
-            value={user.work}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Wirte your message here…"
-            name="message"
-            value={user.message}
-            onChange={handleChange}
-          />
-        </div>
-        {warning ? (
-          <div className={cn("p-4 alert-danger", styles.warning)}>
-            Please all fields are required
-          </div>
-        ) : null}
-        <div className={styles.button}>
-          <span className="pointer" onClick={sendMessage}>
-            <SVGButton />
-          </span>
-        </div>
+        <Formik
+          initialValues={{
+            name: "",
+            email: "",
+            number: "",
+            work: "Digital Strategy",
+            message: "",
+          }}
+          validate={(values) => {
+            if (thankYou) setThankYou(false);
+            const errors = {};
+            if (!values.name) {
+              errors.name = "Required";
+            }
+
+            if (!values.email) {
+              errors.email = "Required";
+            } else if (!ValidateEmail(values.email)) {
+              errors.email = "Please enter a valid email address";
+            }
+
+            if (!values.number) {
+              errors.number = "Required";
+            }
+
+            if (!values.work) {
+              errors.work = "Required";
+            }
+
+            if (!values.message) {
+              errors.message = "Required";
+            }
+            return errors;
+          }}
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            sendMessage(values, setSubmitting, resetForm);
+          }}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              <div>
+                <Field
+                  type="text"
+                  placeholder="Full Name"
+                  name="name"
+                  className="formik_field"
+                />
+                <ErrorMessage
+                  name="name"
+                  component="small"
+                  className="text-danger"
+                />
+              </div>
+
+              <div>
+                <Field
+                  type="text"
+                  placeholder="Email Address"
+                  name="email"
+                  className="formik_field"
+                />
+                <ErrorMessage
+                  name="email"
+                  component="small"
+                  className="text-danger"
+                />
+              </div>
+
+              <div>
+                <Field
+                  type="text"
+                  placeholder="Phone Number"
+                  name="number"
+                  className="formik_field"
+                />
+                <ErrorMessage
+                  name="number"
+                  component="small"
+                  className="text-danger"
+                />
+              </div>
+
+              <div>
+                <Field
+                  as="select"
+                  placeholder="I want to work with BirdHaus_"
+                  name="work"
+                  className="formik_field"
+                >
+                  {options.map((opt)=> <option key={opt} value={opt}>{opt}</option>)}
+                </Field>
+                <ErrorMessage
+                  name="work"
+                  component="small"
+                  className="text-danger"
+                />
+              </div>
+
+              <div>
+                <Field
+                  as="textarea"
+                  placeholder="Wirte your message here…"
+                  name="message"
+                  className="formik_field"
+                  style={{ height: "100px" }}
+                />
+                <ErrorMessage
+                  name="message"
+                  component="small"
+                  className="text-danger"
+                />
+              </div>
+              <div>
+                {thankYou && (
+                  <div className="text-success">Thank you for contacting us!</div>
+                )}
+                <button
+                  type="submit"
+                  className={styles.button}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <div className="spinner-border" role="status"></div>
+                  ) : (
+                    <SVGButton />
+                  )}
+                </button>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
     );
   };

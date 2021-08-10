@@ -8,7 +8,6 @@ import GetInTouch from "../components/GetInTouch";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  
   return (
     <ParallaxProvider>
       <div className={styles.container}>

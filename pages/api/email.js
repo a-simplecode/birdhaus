@@ -1,24 +1,27 @@
-const sgMail = require('@sendgrid/mail')
+const sgMail = require('@sendgrid/mail');
 
-export default (req, res) => {
+export default async (req, res) => {
   const body = JSON.parse(req.body);
-  console.log(body)
 
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+  const msg = {
+    to: 'info@bird-haus.com', 
+    from: 'noreply@bird-haus.com',
+    subject: "I want to work with BirdHaus_ "+body.work,
+    text: 'text',
+    html: `<div>
+    <div><b>Name:</b> ${body.name} </div>
+    <div><b>Email:</b> ${body.email} </div>
+    <div><b>Phone Number:</b> ${body.number}</div>
+    <br></br>
+    <div><b>Message:</b> ${body.message}</div>
+    </div>`,
+  }
+  try{
+    const response = await sgMail.send(msg);
+  }catch (e){
+    console.log("---", e);
+  }
 
-// const msg = {
-//   to: 'aamine@bright-lab.com',
-//   from: 'amineamine19961996@gmail.com', 
-//   subject: 'Email from Amine Amine <?aamine@bright-lab.com>',
-//   text: 'and easy to do anywhere, even with Node.js',
-//   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-// }
-// sgMail
-//   .send(msg)
-//   .then(() => {
-//     console.log('Email sent')
-//   })
-//   .catch((error) => {
-//     console.error(error)
-//   })
-  res.status(200).json({ status: 'Ok' })
+  res.status(200).json({ status: 'Ok' });
 }
